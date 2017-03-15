@@ -4,50 +4,9 @@
         <meta charset="UTF-8" />
         <title>First Phaser Game</title>
         <script src="scripts/phaser/phaser.min.js"></script>
-        to-be-commented: reads the script file placed in the game directory, and sub-directory given
+        <!--reads the script file placed in the game directory, and sub-directory given-->
     </head>
     <body>
-        <script>
-            //console.log(1 + 2);
-
-            var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-            //initiates variable game with (width, height, rendering context (AUTO recomended), and Phaser essential functions)            
-
-            function preload() {
-            game.load.image('sky','assets/sky.png');
-            game.load.image('wall','assets/wall.png');
-            //loads 'asset keys' such as 'sky' and 'wall' used to refrence assets when creating objects
-            //'assets/name.png' is the sub-directory within the game directory that assets are found
-            };
-            
-            var walls;
-
-            function create() {
-
-            game.physics.startSystem(Phaser.Physics.ARCADE);
-            //enables arcade physics system
-
-            walls = game.add.group();
-            //adds varibale platform to a list of groups
-            //groups group similar objects which can be controlled as a single unit
-
-            walls.enableBody = true;
-            //enables the physics for objects in the walls group
-
-            game.add.sprite(0, 0, 'sky');
-            //game.add.sprite(0, 560, 'wall');
-            //game.add.sprite(0, 0, 'wall');
-            //these last two will add the walls as sprites outside of the 'walls' group, which is not prefered.
-            
-            var ground = platforms.create (0, game.world.height - 560, 'wall');
-            //creates the ground as a variable within the 'platforms' group
-            //ground is created at position x = 0 and y = (window height - 560)
-            //third element is the image 'wall'
-            };
-
-            function update() {
-            };
-
-        </script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
