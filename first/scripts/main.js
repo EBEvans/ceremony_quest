@@ -8,7 +8,8 @@ function preload() {
     game.load.image('track','../assets/track.png');
     //loads 'asset keys' such as 'sky' used to refrence assets when creating objects
     //'../assets/name.png' is the sub-directory within the game directory that assets are found
-    game.load.spritesheet('dude','../assets/dude.png', 32, 48);
+    //game.load.spritesheet('dude','../assets/dude.png', 32, 48);
+    game.load.spritesheet('guy','../assets/guy.png', 30, 49,);
     
     };
 
@@ -22,7 +23,8 @@ function create() {
 
     game.add.sprite(0, 0, 'track');
  
-    player = game.add.sprite(32, game.world.height/2, 'dude');
+    //player = game.add.sprite(32, game.world.height/2, 'dude');
+    player = game.add.sprite(32, game.world.height/2, 'guy');
     
     game.physics.arcade.enable(player);
 
