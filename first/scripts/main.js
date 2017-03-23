@@ -2,14 +2,16 @@
 //console.log(1 + 2);
 
 var game = new Phaser.Game(800, 400, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-//initiates variable game with (width, height, rendering context (AUTO recomended), and Phaser essential functions)            
+//initiates variable game with 
+//(width, height, rendering context (AUTO recomended), and Phaser essential functions)            
 
 function preload() {
     game.load.image('track','../assets/track.png');
     //loads 'asset keys' such as 'sky' used to refrence assets when creating objects
     //'../assets/name.png' is the sub-directory within the game directory that assets are found
-    //game.load.spritesheet('dude','../assets/dude.png', 32, 48);
-    game.load.spritesheet('guy','../assets/guy.png', 30, 49,);
+    game.load.spritesheet('guy','../assets/test2.png', 32, 51);
+    //loads the file 'test2.png' as a  spritesheat named 'guy' from directory '../assets/'
+    //frames are specified as being 32 px wide and 51 px tall
     
     };
 
@@ -22,16 +24,22 @@ function create() {
     //enables arcade physics system
 
     game.add.sprite(0, 0, 'track');
+    //adds a sprite at location (0, 0), or the top left of the screen
+    //sprite icon is the 'track' image loaded in preload function
  
-    //player = game.add.sprite(32, game.world.height/2, 'dude');
     player = game.add.sprite(32, game.world.height/2, 'guy');
+    //initiates player variable by adding a sprite at location (32, gmae.world.height/2)
+    //and uses the 'guy' spritesheet as an image resource
     
     game.physics.arcade.enable(player);
+    //enables arcade physics for player
 
     player.body.gravity.y = 0;
     player.body.collideWorldBounds = true; 
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
+    //adds animations based off of the player spritesheet
+    //('animation name', [frame numbers], fps, repeat)
     game.camera.follow(player);
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -44,6 +52,7 @@ function update() {
     game.world.resize(game.world.width + 800, game.world.height);
     game.add.sprite(game.world.width - 800, 0, 'track');
     player.bringToTop();
+    //brings the player to the top of the render order, so that it will appear above track
     }
 
     player.body.velocity.x = 0;
