@@ -19,13 +19,18 @@ function preload() {
 var player;
 var cursors;
 var obstacles;
+var track;
+var progress;
 
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //enables arcade physics system
 
-    game.add.sprite(0, 0, 'track');
+    obstacles = game.add.group();
+    obstacles.enableBody = true;
+
+    track = game.add.sprite(0, 0, 'track');
     //adds a sprite at location (0, 0), or the top left of the screen
     //sprite icon is the 'track' image loaded in preload function
  
@@ -49,26 +54,20 @@ function create() {
 
 function update() {
     
+    game.physics.arcade.collide(player, obstacles);
+
     if (player.world.x > game.world.width - 600)
     {
-        track_generation();
-        obstacle_generation();
+        game.world.resize(game.world.width + 800, game.world.height);
+        track = game.add.sprite(game.world.width - 800, 0, 'track');
+        track.sendToBack();
+
+        var new_obstacle = obstacles.create(game.world.width - 600, game.world.height/2, 'obstacle');
+        new_obstacle.body.immovable = true;
+        new_obstacle.bringToTop();
         player.bringToTop();
     }
     player_movement();
-    };
-
-function obstacle_generation() {
-    
-    };
-
-function track_generation() {
-
-    game.world.resize(game.world.width + 800, game.world.height);
-    game.add.sprite(game.world.width - 800, 0, 'track');
-
-    //player.bringToTop();
-    //brings the player to the top of the render order
     };
 
 function player_movement() {
