@@ -48,6 +48,7 @@ function create() {
     //adds animations based off of the player spritesheet
     //('animation name', [frame numbers], fps, repeat)
     game.camera.follow(player);
+    player.body.velocity.x = 200;
 
     cursors = game.input.keyboard.createCursorKeys();
     };
@@ -66,30 +67,19 @@ function update() {
         new_obstacle.body.immovable = true;
         new_obstacle.bringToTop();
         player.bringToTop();
+
+        progress += 1;
+        player.body.velocity.x = (player.body.velocity.x + (progress*100));
     }
     player_movement();
     };
 
 function player_movement() {
 
-    player.body.velocity.x = 0;
+    //player.body.velocity.x = 150;
     player.body.velocity.y = 0;
-
-    if (cursors.left.isDown)
-    {
-        player.body.velocity.x = -150;
-        player.animations.play('left');
-    }
-    else if (cursors.right.isDown)
-    {
-        player.body.velocity.x = 150;
-        player.animations.play('right');
-    }
-    else
-    {
-        player.animations.stop();
-        player.frame = 4;
-    }
+    player.animations.play('right');
+    
     if (cursors.up.isDown)
     {
         player.body.velocity.y = -150;
