@@ -1,8 +1,4 @@
 
-//console.log(1 + 2);
-test_var = Math.floor(800*Math.random());
-console.log(test_var);
-
 var game = new Phaser.Game(800, 400, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 //initiates variable game with 
 //(width, height, rendering context (AUTO recomended), and Phaser essential functions)            
@@ -25,6 +21,7 @@ var track;
 var progress;
 
 function create() {
+    progress = 0;
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //enables arcade physics system
@@ -50,7 +47,7 @@ function create() {
     //adds animations based off of the player spritesheet
     //('animation name', [frame numbers], fps, repeat)
     game.camera.follow(player);
-    player.body.velocity.x = 200;
+    player.body.velocity.x = 150;
 
     cursors = game.input.keyboard.createCursorKeys();
     };
@@ -65,31 +62,37 @@ function update() {
         game.world.resize(game.world.width + 800, game.world.height);
         track = game.add.sprite(game.world.width - 800, 0, 'track');
         track.sendToBack();
-
-        var new_obstacle = obstacles.create(game.world.width - 600, game.world.height/2, 'obstacle');
-        new_obstacle.body.immovable = true;
-        new_obstacle.bringToTop();
-        player.bringToTop();
-
+        track.autoCull = true;
+        
         progress += 1;
-        player.body.velocity.x += 50
+        obstacle_count = Math.floor(progress/4) + 1;
+
+        for (var i=0; i < obstacle_count; i++) {
+            random_x = Math.floor(800*Math.random());
+            random_y = Math.floor(325*Math.random());
+            var new_obstacle = obstacles.create(game.world.width - random_x, random_y + 50, 'obstacle');
+            new_obstacle.body.immovable = true;
+            new_obstacle.bringToTop();
+            player.bringToTop();
+        };
+
+        player.body.velocity.x += 50;
     }
     player_movement();
     };
 
 function player_movement() {
 
-    //player.body.velocity.x = 150;
     player.body.velocity.y = 0;
     player.animations.play('right');
     
     if (cursors.up.isDown)
     {
-        player.body.velocity.y = -150;
+        player.body.velocity.y = -250;
     }
     else if (cursors.down.isDown)
     {
-        player.body.velocity.y = 150;
+        player.body.velocity.y = 250;
     }
     };
 
@@ -98,4 +101,5 @@ function restart_game() {
     player.reset(32, game.world.height/2);
     game.world.resize(800, 400);
     player.body.velocity.x = 200;
+    progress = 0;
     };
