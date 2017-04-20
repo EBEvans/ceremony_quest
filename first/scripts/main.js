@@ -1,5 +1,7 @@
 
 //console.log(1 + 2);
+test_var = Math.floor(800*Math.random());
+console.log(test_var);
 
 var game = new Phaser.Game(800, 400, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 //initiates variable game with 
@@ -55,7 +57,8 @@ function create() {
 
 function update() {
     
-    game.physics.arcade.collide(player, obstacles);
+    //game.physics.arcade.collide(player, obstacles);
+    game.physics.arcade.overlap(player, obstacles, restart_game, null, this);
 
     if (player.world.x > game.world.width - 600)
     {
@@ -69,7 +72,7 @@ function update() {
         player.bringToTop();
 
         progress += 1;
-        player.body.velocity.x = (player.body.velocity.x + (progress*100));
+        player.body.velocity.x += 50
     }
     player_movement();
     };
@@ -88,4 +91,11 @@ function player_movement() {
     {
         player.body.velocity.y = 150;
     }
+    };
+
+function restart_game() {
+    obstacles.removeAll(true, false, false);
+    player.reset(32, game.world.height/2);
+    game.world.resize(800, 400);
+    player.body.velocity.x = 200;
     };
