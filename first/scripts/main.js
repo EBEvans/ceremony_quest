@@ -69,8 +69,8 @@ function update() {
 
         for (var i=0; i < obstacle_count; i++) {
             random_x = Math.floor(800*Math.random());
-            random_y = Math.floor(325*Math.random());
-            var new_obstacle = obstacles.create(game.world.width - random_x, random_y + 50, 'obstacle');
+            random_y = Math.floor(350*Math.random());
+            var new_obstacle = obstacles.create(game.world.width - random_x, random_y + 25, 'obstacle');
             new_obstacle.body.immovable = true;
             new_obstacle.bringToTop();
             player.bringToTop();
